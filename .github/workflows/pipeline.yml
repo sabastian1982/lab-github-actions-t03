@@ -35,6 +35,23 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+  matrix-test:
+    name: Matrix Test - ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os:
+          - ubuntu-latest
+          - windows-latest
+
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v4
+
+      - name: Mostrar plataforma
+        run: echo "Ejecutando en ${{ matrix.os }}"
+
   deploy-dev:
     name: Deploy → dev
     needs: build-and-test
